@@ -1,0 +1,29 @@
+┌─────────────────┐
+│   WHATSAPP      │
+│   (Paciente)    │
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│   TWILIO API    │ ← WhatsApp Business API (más fácil que Meta)
+│  o WATI/Gupshup │
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│      N8N        │ ← Orquestación de flujos
+│   (Workflows)   │    - Recibe mensajes
+└────────┬────────┘    - Consulta disponibilidad
+         │             - Agenda citas
+         │             - Envía recordatorios
+         ↓
+┌─────────────────┐
+│   SUPABASE      │ ← Base de datos + Auth
+│  (PostgreSQL)   │    - Tabla: especialistas
+└────────┬────────┘    - Tabla: citas
+         │             - Tabla: horarios
+         ↓
+┌─────────────────┐
+│  NEXT.JS + V0   │ ← Panel del especialista
+│   en VERCEL     │    - Dashboard de citas
+└─────────────────┘    - Config de horarios

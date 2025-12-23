@@ -1,0 +1,7 @@
+# Variables de Entorno - CRÍTICO
+.env
+.env.local
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
