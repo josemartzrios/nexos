@@ -12,7 +12,7 @@ Hito clave: ✓ Todo configurado y conectado
 
 TAREAS:
 --------
-[  ] Tarea 1.1: Crear cuenta Supabase + configurar proyecto
+[ X ] Tarea 1.1: Crear cuenta Supabase + configurar proyecto
      Tiempo: 1h
      Entregable: Proyecto Supabase creado
      Responsable: Dev
@@ -22,7 +22,7 @@ TAREAS:
      Entregable: Diagrama ER + Tablas creadas
      Responsable: Dev
      
-[  ] Tarea 1.3: Crear cuenta N8N Cloud o setup self-hosted
+[ X ] Tarea 1.3: Crear cuenta N8N Cloud o setup self-hosted
      Tiempo: 1h
      Entregable: N8N funcionando
      Responsable: Dev
