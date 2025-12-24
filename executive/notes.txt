@@ -1,2 +1,1 @@
-- tipo de dato (integer) en tabla horarios_disponibles '0=Domingo, 1=Lunes, ..., 6=Sábado',
-en lugar de varchar y dia explicito de la semana. 
+- Error: Failed to run sql query: ERROR: 42P17: functions in index predicate must be marked IMMUTABLE

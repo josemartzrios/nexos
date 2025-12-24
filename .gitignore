@@ -5,3 +5,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
+
+
+.design 
+
+.arquitectura.txt
+.entidad-relacion.sql
+.schema.sql 
