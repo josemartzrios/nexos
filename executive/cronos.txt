@@ -27,7 +27,7 @@ TAREAS:
      Entregable: N8N funcionando
      Responsable: Dev
      
-[  ] Tarea 1.4: Crear cuenta WATI/Gupshup para WhatsApp
+[  ] Tarea 1.4: Crear cuenta WATI/Gupshup/WANotifier para WhatsApp
      Tiempo: 1h
      Entregable: Número WhatsApp Business
      Responsable: Dev

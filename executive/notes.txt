@@ -1,1 +1,2 @@
-- Error: Failed to run sql query: ERROR: 42P17: functions in index predicate must be marked IMMUTABLE
+- Como se maneja en base de datos el agendar una cita, ya que veo en la Tabla
+horarios disponibles dos columnas: hora_inicio y hora_fin y en mis datos de prueba es 9.00am y 17:00pm  

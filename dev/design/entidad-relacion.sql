@@ -64,7 +64,6 @@ Table citas {
   estado text [default: 'pendiente', note: 'pendiente, confirmada, cancelada, completada']
   motivo text
   notas text
-  recordatorio_enviado boolean [default: false]
   created_at timestamp [default: `now()`]
   updated_at timestamp [default: `now()`]
   
@@ -75,6 +74,28 @@ Table citas {
   }
   
   Note: 'Citas agendadas entre especialistas y pacientes'
+}
+
+-- Tabla: Recordatorios
+Table recordatorios {
+  id uuid [pk, default: `gen_random_uuid()`]
+  cita_id uuid [ref: > citas.id, not null]
+  tipo text [not null, note: '24h_antes, 1h_antes, confirmacion, seguimiento']
+  fecha_programada timestamp [not null]
+  fecha_enviado timestamp
+  estado text [default: 'pendiente', note: 'pendiente, enviado, fallido, cancelado']
+  mensaje text
+  error text
+  intentos integer [default: 0]
+  created_at timestamp [default: `now()`]
+  
+  indexes {
+    cita_id
+    estado
+    (fecha_programada, estado)
+  }
+  
+  Note: 'Recordatorios de citas enviados por WhatsApp'
 }
 
 -- Tabla: Logs de WhatsApp
@@ -107,6 +128,9 @@ Table whatsapp_logs {
 -- Un paciente tiene muchas citas
 -- Ref: citas.paciente_id > pacientes.id [delete: cascade]
 
+-- Una cita tiene muchos recordatorios
+-- Ref: recordatorios.cita_id > citas.id [delete: cascade]
+
 -- ============================================
 -- NOTAS GENERALES
 -- ============================================
@@ -120,18 +144,27 @@ Note proyecto {
   2. Bot consulta horarios_disponibles del especialista
   3. Paciente selecciona horario y confirma
   4. Se crea registro en tabla citas
-  5. Se envía confirmación automática
-  6. Sistema envía recordatorio 24h antes
+  5. Se crean recordatorios automáticos (24h, 1h antes)
+  6. Sistema procesa recordatorios pendientes
+  7. Se envía confirmación y recordatorios vía WhatsApp
   
   ## Relaciones Clave:
   - Especialista 1:N Horarios (un especialista tiene múltiples horarios)
   - Especialista 1:N Citas (un especialista tiene múltiples citas)
   - Paciente 1:N Citas (un paciente puede tener múltiples citas)
+  - Cita 1:N Recordatorios (una cita puede tener múltiples recordatorios)
   
   ## Índices Importantes:
   - citas(especialista_id, fecha_hora) para búsquedas rápidas
   - pacientes(telefono) para lookup de pacientes por WhatsApp
   - horarios_disponibles(especialista_id) para consulta de disponibilidad
+  - recordatorios(fecha_programada, estado) para procesar recordatorios pendientes
+  
+  ## Sistema de Recordatorios:
+  - Múltiples tipos: 24h_antes, 1h_antes, confirmacion, seguimiento
+  - Estados: pendiente, enviado, fallido, cancelado
+  - Retry automático para fallos (máx 3 intentos)
+  - Tracking completo de envíos para auditoría
   
   ## Seguridad:
   - Row Level Security (RLS) habilitado en todas las tablas
